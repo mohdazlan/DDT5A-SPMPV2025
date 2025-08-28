@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class WelcomeServlet
@@ -27,6 +28,11 @@ public class WelcomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		HttpSession session = request.getSession(false);
+		if(session == null || session.getAttribute("username") == null) {
+			response.sendRedirect("error.html");
+		}
 		response.getWriter().append("Selamat Datang: ").append(request.getContextPath());
 	}
 
