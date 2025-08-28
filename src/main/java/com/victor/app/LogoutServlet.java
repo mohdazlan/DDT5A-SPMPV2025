@@ -1,8 +1,6 @@
 package com.victor.app;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class WelcomeServlet
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/welcome")
-public class WelcomeServlet extends HttpServlet {
+@WebServlet("/logout")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WelcomeServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,26 +28,12 @@ public class WelcomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession(false);
-		if(session == null || session.getAttribute("namaPengguna") == null) {
-			response.sendRedirect("error.html");
+		if(session != null) {
+			session.invalidate();
 		}
-		
-		String userString = (String)session.getAttribute("namaPengguna"); 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<html>");
-		out.println("<head>");
-		out.println("</head>");
-		out.println("<body>");
-		out.println("<p>Selamat Datang ::</p>");
-		out.println(userString);
-		out.println("<a href='logout'>Logout</a>");
-		out.println("</body>");
-		out.println("</html>");
-		// response.getWriter().append("Selamat Datang: ").append(request.getContextPath());
-	
+		response.sendRedirect("login");
 	}
 
 	/**
